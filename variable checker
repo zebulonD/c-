@@ -1,0 +1,95 @@
+using System;
+using System.Threading;
+
+namespace ralph
+{
+    class PrintData
+    {
+        void print(int i)
+        {
+            Console.WriteLine("printing int: {0}", i);
+        }
+        void print(double f)
+        {
+            Console.WriteLine("printing float: {0}", f);
+        }
+        void print(string s)
+        {
+            Console.WriteLine("printing string: {0}", s);
+        }
+        static void Main(string[] args)
+        {
+            PrintData p = new PrintData();
+            p.print(20);
+            p.print(512.264);
+            p.print("hello yeovil OOP programmers");
+
+        home:
+            Console.WriteLine("please enter");
+            string x = Console.ReadLine();
+            if (x.Length == 0)
+            {
+                Console.WriteLine("please try again");
+                goto home;
+            }
+            int y = 0;
+
+            try
+            {
+                Convert.ToInt32(x);
+                y = 1;
+            }catch(Exception e)
+            {
+                
+                try
+                {
+                    Convert.ToDouble(x);
+                    y = 2;
+                }
+                catch (Exception t)
+                {
+                    
+                }
+            }
+            
+            if (y == 1)
+            {
+                p.print(int.Parse(x));
+            }
+            if (y == 2)
+            {
+                p.print(Convert.ToDouble(x));
+            }
+            if (y == 0)
+            {
+                p.print(x);
+            }
+            ConsoleKeyInfo cki;
+
+            do
+            {
+                Console.WriteLine("\nPress a key to display; press the 'x' key to quit.");
+
+                // Your code could perform some useful task in the following loop. However,
+                // for the sake of this example we'll merely pause for a quarter second.
+
+                while (Console.KeyAvailable == false)
+                    Thread.Sleep(250);
+                
+                    
+
+                cki = Console.ReadKey(true);
+                Console.WriteLine("You pressed the '{0}' key.", cki.Key);
+                if (cki.Key != ConsoleKey.X) { goto home; }
+                
+            } while (cki.Key != ConsoleKey.X);
+
+            Console.WriteLine("Are you sure?\nYES or NO");
+            string ans = Console.ReadLine();
+            if ( ans.ToLower() == "no")
+            {
+                goto home;
+            }
+        }
+    }
+}
